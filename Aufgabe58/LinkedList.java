@@ -10,10 +10,11 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
-public class LinkedList implements List{
+public class LinkedList<T> implements List<T>{
 
     private int length = 0;
-    Termin first = new Termin();
+    private LinkedList<T> next = null;
+    private T item = null;
     
     @Override
     public boolean isEmpty() {
@@ -29,60 +30,28 @@ public class LinkedList implements List{
     }
 
     @Override
-    public Termin firstTermin() {
+    public T firstTermin() {
         if(this.isEmpty()) {
             return null;
         }
-        return this.first;
+        return this.next.item;	//geht aber nur, wenn diese funktion nur von der root-liste (in main) aufgerufen wird!
     }
 
     @Override
-    public List insert(Termin x) {
-        if(this.isEmpty() == true) {
-            this.first = x;
-            System.out.println("new first?!");
-            this.length++;
-        } else {
-            Termin last = this.first;
-            while(last.getNextTermin() != null) {
-                last = last.getNextTermin();
-            }
-            last.setNextTermin(x);
-            this.length++;
-        }
-        return null;
+    public List<T> insert(T x) {
+    	//sortierung ergaenzen!
+    	LinkedList<T> tempList = new LinkedList<T>();
+    	tempList.item = x;
+    	tempList.next = next;
+    	next = tempList;
+    	this.length++;
+    	return this;
     }
 
     @Override
-    public List delete(Termin x) {
+    public List<T> delete(T x) {
         // TODO Auto-generated method stub
         return null;
-    }
-    
-    public void readCSV(String file) throws IOException {
-        //fehler abgefangen?
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        try {
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-            
-            while (line != null) {
-                sb.append(line);
-                //hier
-                String[] s = line.split(";");
-                Termin date = new Termin(Integer.parseInt(s[0]),Integer.parseInt(s[1]),Integer.parseInt(s[2]),
-                        s[3],s[4],s[5]);
-                this.insert(date);
-                //
-                line = br.readLine();
-                System.out.println("read new date");
-            }
-            //String everything = sb.toString();
-            //System.out.println("Test");
-        } finally {
-            //??
-            System.out.println("Fehler!");
-        }
     }
     
 }
