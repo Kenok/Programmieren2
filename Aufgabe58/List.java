@@ -4,10 +4,10 @@
  * Schnittstelle zur Verwendung mit Listen.
  */
 
-public interface List {
+public interface List<T> {
 	boolean isEmpty();
 	int length();
-	Termin firstTermin();
-	List insert(Termin x);
-	List delete(Termin x);
+	T firstTermin();
+	List<T> insert(T x);
+	List<T> delete(T x);
 }
