@@ -1,5 +1,6 @@
+import java.util.GregorianCalendar;
+public class Termin implements Comparable <Termin> {
 
-public class Termin {
 	
 	public Termin(){
 		
@@ -13,7 +14,14 @@ public class Termin {
 		this.ort = o;
 		this.beschreibung = b;
 	}
-	
+     // main
+    
+    
+    
+    
+
+
+
 	//Atribute
 	 private int jahr =  0;
 	 private int monat =  0;
@@ -21,60 +29,44 @@ public class Termin {
 	 private String uhrzeit =  new String();
 	 private String ort =  new String();
 	 private String beschreibung =  new String();
-	 private Termin nextTermin = null;
-	 
-	 
+	 private Termin  nextTermin = null;
+	 private String[] a = uhrzeit.split(":")  ;
+	
+	 GregorianCalendar calendar = new GregorianCalendar(jahr,monat,tag,Integer.parseInt(a[0]),Integer.parseInt(a[1]));
 	 //Methoden
+	 public void setNextTermin(Termin y){
+		 this.nextTermin = y;
+		 
+	 }
+	 public Termin getNextTermin(){
+		 return nextTermin;
+	 }
+	 
 	 //compareto
-	 int compareTo( Termin x){  //return -1 wenn kleiner ,0 wenn gleich und 1 wenn größer
-		 if (this.jahr < x.jahr){
+	 public int compareTo( Termin x){  //return -1 wenn kleiner ,0 wenn gleich und 1 wenn größer
+		 if (calendar.compareTo(x.calendar )< 0){
 			 return -1;
-		 }
-		 if (this.jahr > x.jahr){
+		 } else if (calendar.compareTo(x.calendar )== 0){
+			 return 0;
+		 } else if (calendar.compareTo(x.calendar )> 0){
+			 return 1;
+		 } else {
 			 return 1;
 		 }
-		 //spezial
-		 if (this.jahr == x.jahr){
-			 
-			 if (this.monat < x.monat){
-				 return -1;
-			 }
-			 if (this.monat > x.monat){
-				 return 1;
-			 }
-			 if (this.monat == x.monat){
-				 
-				 if (this.tag < x.tag){
-					 return -1;
-				 }
-				 if (this.tag > x.tag){
-					 return 1;
-				 }
-				 if (this.tag == x.tag){
-					 
-				 }
-			 }	 	 
-			 
-		 }
 		 
-		return 1; 
+		
 	 }
 	//toString 
 	public String toString(){
 		
-		String a =("Testausgabe jahr:"+ this.jahr  +"monat:" + this.monat + this.ort+this.tag+this.uhrzeit + this.beschreibung);
+		String a =String.format("%n Testausgabe jahr:"+ this.jahr + "%20" +"monat:" + this.monat + "%20" + this.ort+ "%20" +this.tag+ "%20" +this.uhrzeit + "%20" + this.beschreibung);
 		
 		return a;
 	}
-
-	public Termin getNextTermin() {
-		// TODO Auto-generated method stub
-		return this.nextTermin;
-	}
-
-	public void setNextTermin(Termin x) {
-		// TODO Auto-generated method stub
-		this.nextTermin = x;
-	}
+	
+	
+	
+	
+	
 
 }
